@@ -1,5 +1,7 @@
 import time
+
 from fastapi import APIRouter
+
 from src.api.schemas import QueryRequest, QueryResponse
 from src.core.redis_cache import cache_instance
 

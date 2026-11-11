@@ -1,6 +1,7 @@
-import streamlit as st
-import requests
 import os
+
+import requests
+import streamlit as st
 
 st.set_page_config(page_title="Semantic gateway", layout="wide")
 
@@ -78,5 +79,5 @@ if prompt := st.chat_input("Escribe tu consulta:"):
                 
             st.rerun()
             
-        except Exception as e:
+        except Exception as e: # noqa: BLE001
             st.error(f"Error conectando a la api: {e}")

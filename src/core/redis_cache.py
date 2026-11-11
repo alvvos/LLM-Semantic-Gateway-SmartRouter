@@ -1,11 +1,13 @@
-import numpy as np
-import os
-import redis
-from redis.commands.search.field import VectorField, TextField
-from redis.commands.search.query import Query
-from redis.commands.search.index_definition import IndexDefinition, IndexType
-from sentence_transformers import SentenceTransformer
 import hashlib
+import os
+
+import numpy as np
+import redis
+from redis.commands.search.field import TextField, VectorField
+from redis.commands.search.index_definition import IndexDefinition, IndexType
+from redis.commands.search.query import Query
+from sentence_transformers import SentenceTransformer
+
 
 class RedisSemanticCache:
     def __init__(self, host='localhost', port=6379, model_name='all-MiniLM-L6-v2', threshold=0.82, dimension=384):
@@ -83,6 +85,6 @@ class RedisSemanticCache:
 
 
 redis_host = os.getenv("REDIS_HOST", "localhost")
-redis_port = int(os.getenv("REDIS_PORT", 6379))
+redis_port = int(os.getenv("REDIS_PORT", "6379"))
 
 cache_instance = RedisSemanticCache(host=redis_host, port=redis_port)
