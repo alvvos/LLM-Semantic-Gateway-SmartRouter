@@ -36,7 +36,8 @@ jobs:
     needs: test-and-lint
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
     
     - name: Build Gateway Docker Image
       run: docker build -t alvarosalis/semantic-gateway:latest -f deploy/Dockerfile.gateway .
