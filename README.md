@@ -2,16 +2,16 @@
 
 Repositorio de implementación de un patrón arquitectónico *Semantic Gateway* para la interceptación inteligente de peticiones a Modelos de Lenguaje Grande (LLMs). Diseñado bajo principios de FinOps, LLMOps y observabilidad, este sistema minimiza la latencia y reduce los costes operativos de inferencia mediante caché vectorial distribuida.
 
-## Visión General
+## Visión general
 
 En entornos empresariales con alta concurrencia de usuarios interactuando con modelos fundacionales, una proporción significativa de las consultas posee una intención semántica idéntica, aunque difiera en su estructura sintáctica. 
 
-Este *Gateway* actúa como un proxy inverso inteligente que:
+Este gateway actúa como un proxy inverso inteligente que:
 1. Vectoriza la consulta entrante utilizando modelos de *embeddings* locales de baja latencia.
 2. Realiza una búsqueda de similitud del coseno (*K-Nearest Neighbors*) en un clúster de Redis.
 3. Resuelve la petición en milisegundos si detecta un *Cache Hit* (superando el umbral de confianza predefinido), evitando la llamada a la API del proveedor LLM y eliminando el coste de inferencia.
 
-## Arquitectura del Sistema
+## Arquitectura del sistema
 
 El ecosistema está contenerizado e implementa un diseño *stateless* en la capa de aplicación, delegando el estado a la base de datos en memoria para permitir el escalado horizontal.
 
