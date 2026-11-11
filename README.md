@@ -11,7 +11,7 @@ Este gateway actúa como un proxy inverso inteligente que:
 2. Realiza una búsqueda de similitud del coseno (*K-Nearest Neighbors*) en un clúster de Redis.
 3. Resuelve la petición en milisegundos si detecta un *Cache Hit* (superando el umbral de confianza predefinido), evitando la llamada a la API del proveedor LLM y eliminando el coste de inferencia.
 
-## Arquitectura del sistema
+## Arquitectura
 
 El ecosistema está contenerizado e implementa un diseño *stateless* en la capa de aplicación, delegando el estado a la base de datos en memoria para permitir el escalado horizontal.
 
