@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  redis-vector:
+    container_name: redis-v
+    image: redis/redis-stack-server:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  gateway-api:
+    container_name: api
+    build: 
+      context: ../
+      dockerfile: deploy/Dockerfile.gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis-vector
+      - REDIS_PORT=6379
+    depends_on:
+      - redis-vector
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ../
+      dockerfile: deploy/Dockerfile.frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://gateway-api:8000/chat
+    depends_on:
+      - gateway-api
+
+volumes:
+  redis_data:

@@ -1,0 +1,41 @@
+name: CI/CD Pipeline - Semantic Gateway
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install ruff pytest fastapi httpx faiss-cpu sentence-transformers
+
+    - name: Lint with Ruff (Código limpio)
+      run: |
+        ruff check src/ tests/
+
+    - name: Run Unit Tests
+      run: |
+        pytest tests/ -v
+
+  build-docker:
+    needs: test-and-lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build Gateway Docker Image
+      run: docker build -t alvarosalis/semantic-gateway:latest -f deploy/Dockerfile.gateway .

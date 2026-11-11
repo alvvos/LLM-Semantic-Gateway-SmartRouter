@@ -1,0 +1,2 @@
+# Sirve únicamente en caso de que cambien las respuestas almacenadas, en general a preguntas recurrentes.
+# En cuyo caso sería necesario un resetear la caché y reentrenar con los nuevos datos, no es el caso aquí.
