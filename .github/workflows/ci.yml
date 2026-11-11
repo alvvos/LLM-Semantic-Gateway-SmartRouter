@@ -27,10 +27,9 @@ jobs:
       run: |
         ruff check src/ tests/
 
-    - name: Run Unit Tests
-      run: |
-        pytest tests/ -v
-
+    - name: Run tests
+      run: PYTHONPATH=. pytest tests/ -v
+        
   build-docker:
     needs: test-and-lint
     runs-on: ubuntu-latest
